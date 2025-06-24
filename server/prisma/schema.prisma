@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model categories {
+  id      Int       @id @default(autoincrement())
+  title   String?   @db.VarChar(255)
+  quizzes quizzes[]
+}
+
+model questions {
+  id             Int      @id @default(autoincrement())
+  question       String?  @db.VarChar(255)
+  options        Json?
+  correct_answer String?  @db.VarChar(255)
+  quiz_id        Int?
+  quizzes        quizzes? @relation(fields: [quiz_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "questions_ibfk_1")
+
+  @@index([quiz_id], map: "quiz_id")
+}
+
+model quizzes {
+  id          Int         @id @default(autoincrement())
+  title       String?     @db.VarChar(255)
+  description String?     @db.VarChar(255)
+  category_id Int?
+  questions   questions[]
+  categories  categories? @relation(fields: [category_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "quizzes_ibfk_1")
+
+  @@index([category_id], map: "category_id")
+}

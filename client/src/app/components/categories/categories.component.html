@@ -1,0 +1,8 @@
+<div class="container">
+  <h1>Choose a category</h1>
+  <ul>
+    <li *ngFor="let category of categories">
+      <a [routerLink]="['/', 'quizzes', category.title | lowercase]">{{ category.title }}</a>
+    </li>
+  </ul>
+</div>

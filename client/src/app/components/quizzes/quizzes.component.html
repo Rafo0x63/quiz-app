@@ -1,0 +1,8 @@
+<div class="container">
+    <h1>Select a Quiz</h1>
+    <ul>
+        <li *ngFor="let quiz of quizzes">
+            <a [routerLink]="quiz.title | slugify">{{ quiz.title }}</a>
+        </li>
+    </ul>
+</div>
