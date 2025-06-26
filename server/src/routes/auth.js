@@ -6,7 +6,6 @@ const router = express.Router()
 const prisma = new PrismaClient()
 
 router.post('/register', async (req, res) => {
-    console.log(req.body)
     const { email, password, first_name, last_name } = req.body
     if (!email || !password || !first_name || !last_name) {
       return res.status(400).json({ error: 'Email, password, and name are required' })
@@ -58,7 +57,7 @@ router.post('/login', async (req, res) => {
 
       res.json({ message: 'Login successful',
         user: { 
-          firstName: user.first_name, email: user.email 
+          firstName: user.first_name, email: user.email, isAdmin: user.is_admin 
         }
       })
     } catch (error) {

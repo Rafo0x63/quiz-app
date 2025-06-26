@@ -4,5 +4,8 @@
 
 body {
     min-height: 100vh;
-    background: linear-gradient(135deg, #a3b8d1, #6c7a89);
+    background: linear-gradient(to left, #a3b8d1, #c7e2ff);
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

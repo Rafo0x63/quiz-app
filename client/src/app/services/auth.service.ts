@@ -13,11 +13,17 @@ export class AuthService {
     private api = "http://localhost:3000/api"
 
     constructor(private http: HttpClient) {
-        const storedUser = localStorage.getItem('currentUser')
-        if (storedUser) {
-            this.currentUserSubject.next(JSON.parse(storedUser))
+        if (typeof window !== 'undefined'){
+            const storedUser = localStorage.getItem('currentUser')
+            if (storedUser) {
+                this.currentUserSubject.next(JSON.parse(storedUser))
+            }
         }
-     }
+    }
+
+    register(data: { first_name: string, last_name: string, email: string, password: string }) {
+        return this.http.post(`${this.api}/auth/register`, data)
+    }
 
     login(email: string, password: string) {
         return this.http.post<any>(`${this.api}/auth/login`, {email, password}).pipe(
@@ -25,10 +31,18 @@ export class AuthService {
                 const user = response.user
                 if (user) {
                     this.currentUserSubject.next(user)
-
                     localStorage.setItem('currentUser', JSON.stringify(user))
                 }
             })
         )
+    }
+
+    logout() {
+        this.currentUserSubject.next(null)
+        localStorage.removeItem('currentUser')
+    }
+
+    getCurrentUser() {
+        return this.currentUserSubject.value
     }
 }

@@ -29,4 +29,48 @@ router.get("/:category_title", async (req, res) => {
     res.json(quizzes)
 })
 
+router.post("/", async (req, res) => {
+    const { title, description, category_id } = req.body
+
+    const quiz = await prisma.quiz.create({
+        data: {
+            title: title,
+            description: description,
+            category_id: Number(category_id)
+        }
+    })
+
+    res.json(quiz)
+})
+
+router.put('/:id', async (req, res) => {
+    const { id } = req.params
+    const { title, description, category_id } = req.body
+
+    const quiz = await prisma.quiz.update({
+        where: {
+            id: Number(id)
+        },
+        data: {
+            title: title,
+            description: description,
+            category_id: category_id
+        }
+    })
+
+    res.json(quiz)
+})
+
+router.delete("/:id", async (req, res) => {
+    const { id } = req.params
+
+    const quiz = await prisma.quiz.delete({
+        where: {
+            id: Number(id)
+        }
+    })
+
+    res.json(quiz)
+})
+
 export default router

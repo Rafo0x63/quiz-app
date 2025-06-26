@@ -8,11 +8,27 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class QuestionsService {
-  private api = "http://localhost:3000/api"
+  private api = "http://localhost:3000/api/questions"
 
   constructor(private http: HttpClient) { }
 
   getQuestionsByQuiz(category: String, quiz: String): Observable<{quiz: Quiz, questions: Question[]}> {
-    return this.http.get<{quiz: Quiz, questions: Question[]}>(`${this.api}/questions/${category}/${quiz}`)
+    return this.http.get<{quiz: Quiz, questions: Question[]}>(`${this.api}/${category}/${quiz}`)
+  }
+
+  getAll(): Observable<Question[]> {
+    return this.http.get<Question[]>(this.api);
+  }
+
+  create(question: Partial<Question>): Observable<Question> {
+    return this.http.post<Question>(this.api, question);
+  }
+
+  update(id: number, question: Partial<Question>): Observable<Question> {
+    return this.http.put<Question>(`${this.api}/${id}`, question);
+  }
+
+  delete(id: number): Observable<any> {
+    return this.http.delete(`${this.api}/${id}`);
   }
 }

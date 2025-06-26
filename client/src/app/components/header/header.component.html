@@ -7,22 +7,25 @@
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
+        <li class="nav-item" *ngIf="user?.isAdmin">
+          <a class="nav-link" role="button" href="/dashboard" routerLinkActive="active">Dashboard</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" role="button" href="/categories" routerLinkActive="active">Categories</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" role="button" href="/quizzes" routerLinkActive="active">Quizzes</a>
         </li>
-
-        <li class="nav-item" *ngIf="user; else showLogin">
+        <li class="nav-item d-flex" *ngIf="user; else showLogin">
           <a class="nav-link disabled" role="button" tabindex="-1" aria-disabled="true">
             Welcome, {{ user.firstName }}
           </a>
+          <button (click)="logout()" class="btn btn-outline-light ms-3">Logout</button>
         </li>
 
         <ng-template #showLogin>
           <li class="nav-item">
-            <a class="btn btn-outline-light ms-3" role="button" routerLink="/login">Login</a>
+            <a class="btn btn-outline-light ms-3" role="button" href="/login">Login</a>
           </li>
         </ng-template>
       </ul>
