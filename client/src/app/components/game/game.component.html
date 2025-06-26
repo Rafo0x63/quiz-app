@@ -1,10 +1,63 @@
-<div class="container">
-    <h1>Questions</h1>
-    <ul>
-        <li *ngFor="let q of questions">{{ q.question }}
-            <ul>
-                <li *ngFor="let answer of q.options">{{ answer }}</li>
+<div class="container mt-5">
+  <div *ngIf="quizFinished; else quizInProgress">
+    <h1 class="text-center mb-4">Results</h1>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow-sm">
+          <div class="card-body px-4 py-5 text-center">
+            <h4 class="card-title mb-4 fs-3 fw-bold">{{(categoryTitle | unslugify) + ' - ' + (quizTitle | unslugify) }}</h4>
+            <div class="fs-4 mb-2">
+              You got {{ correctAnswers }} / {{ questions.length }} correct
+            </div>
+            <div class="fs-1 fw-bold">
+              Score: {{ (correctAnswers / questions.length) * 100 | number:'1.0-0' }}%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #quizInProgress>
+    <h1 class="text-center mb-4">Questions</h1>
+    <div *ngIf="questions.length > 0; else loading" class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow-sm">
+          <div class="card-body px-4 py-5">
+            <h5 class="card-title mb-4 text-center fw-bold fs-1">
+              {{ questions[currentQuestionIdx].question }}
+            </h5>
+            <ul class="list-group">
+              <li
+                *ngFor="let answer of questions[currentQuestionIdx].options"
+                role="button"
+                class="list-group-item list-group-item-action text-center fw-bold fs-5"
+                [class.active]="selectedAnswer === answer"
+                (click)="selectAnswer(answer)">
+                {{ answer }}
+              </li>
             </ul>
-        </li>
-    </ul>
+            <button
+              *ngIf="!isFinalQuestion"
+              [disabled]="!selectedAnswer"
+              (click)="nextQuestion()"
+              class="btn btn-success mt-5 float-end">
+              Next question
+            </button>
+            <button
+              *ngIf="isFinalQuestion"
+              [disabled]="!selectedAnswer"
+              (click)="finishQuiz()"
+              class="btn btn-success mt-5 float-end">
+              Finish
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #loading>
+    <div class="text-center text-muted mt-5 fs-4">Loading questions...</div>
+  </ng-template>
 </div>

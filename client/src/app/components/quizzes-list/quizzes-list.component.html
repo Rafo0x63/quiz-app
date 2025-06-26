@@ -4,9 +4,10 @@
     <div *ngFor="let quiz of quizzes" class="col-md-4 mb-4">
       <div class="card h-100 shadow-sm">
         <div class="card-body d-flex flex-column justify-content-between">
+          <h4 class="card-title text-muted fs-6">{{ quiz.category.title }}</h4>
           <h5 class="card-title">{{ quiz.title }}</h5>
           <div class="card-text text-muted">{{ quiz.description }}</div>
-          <a [routerLink]="quiz.title | slugify" class="btn btn-primary mt-3">Start Quiz</a>
+          <a [routerLink]="quiz.category.title + '/' + quiz.title | slugify" class="btn btn-primary mt-3">Start Quiz</a>
         </div>
       </div>
     </div>

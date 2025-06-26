@@ -5,7 +5,7 @@ const router = express.Router()
 const prisma = new PrismaClient()
 
 router.get("/", async (req, res) => { 
-    const questions = await prisma.questions.findMany()
+    const questions = await prisma.question.findMany()
     res.json(questions)
 })
 
@@ -13,15 +13,17 @@ router.get("/:category_title/:quiz_title", async (req, res) => {
     let { quiz_title } = req.params
     quiz_title = quiz_title.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
     
-    const quiz = await prisma.quizzes.findFirst({
+    const quiz = await prisma.quiz.findFirst({
         where: { title: quiz_title }
     })
 
-    const questions = await prisma.questions.findMany({
+    const questions = await prisma.question.findMany({
         where: { quiz_id: quiz.id }
     })
 
-    res.json(questions)
+    quiz.questions = questions
+
+    res.json({quiz, questions})
 })
 
 export default router

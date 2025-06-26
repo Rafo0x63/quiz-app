@@ -8,30 +8,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model categories {
+model category {
   id      Int       @id @default(autoincrement())
   title   String?   @db.VarChar(255)
-  quizzes quizzes[]
+  quiz    quiz[]
 }
 
-model questions {
+model question {
   id             Int      @id @default(autoincrement())
   question       String?  @db.VarChar(255)
   options        Json?
   correct_answer String?  @db.VarChar(255)
   quiz_id        Int?
-  quizzes        quizzes? @relation(fields: [quiz_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "questions_ibfk_1")
+  quiz           quiz? @relation(fields: [quiz_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "questions_ibfk_1")
 
   @@index([quiz_id], map: "quiz_id")
 }
 
-model quizzes {
+model quiz {
   id          Int         @id @default(autoincrement())
   title       String?     @db.VarChar(255)
   description String?     @db.VarChar(255)
   category_id Int?
-  questions   questions[]
-  categories  categories? @relation(fields: [category_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "quizzes_ibfk_1")
+  questions   question[]
+  category  category? @relation(fields: [category_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "quizzes_ibfk_1")
 
   @@index([category_id], map: "category_id")
+}
+
+model user {
+  id         Int      @id @default(autoincrement())
+  first_name String
+  last_name  String
+  email      String   @unique
+  password   String
 }

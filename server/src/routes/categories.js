@@ -5,13 +5,13 @@ const router = express.Router()
 const prisma = new PrismaClient()
 
 router.get("/", async (req, res) => { 
-    const categories = await prisma.categories.findMany()
+    const categories = await prisma.category.findMany()
     res.json(categories)
 })
 
 router.get("/:id", async (req, res) => {
     const { id } = req.params
-    const category = await prisma.categories.findUnique({
+    const category = await prisma.category.findUnique({
         where: { id: Number(id) }
     })
     

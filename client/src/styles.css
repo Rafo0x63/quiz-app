@@ -1,3 +1,8 @@
 * {
     font-family: Arial, Helvetica, sans-serif;
 }
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #a3b8d1, #6c7a89);
+}
