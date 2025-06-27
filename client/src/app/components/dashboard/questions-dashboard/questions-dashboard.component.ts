@@ -33,8 +33,12 @@ export class QuestionsDashboardComponent {
   }
 
   ngOnInit(): void {
-    this.quizService.getAllQuizzes().subscribe(data => this.quizzes = data);
-    this.loadQuestions();
+    this.quizService.getAllQuizzes().subscribe({
+      next: (data) => {
+        this.quizzes = data
+        this.loadQuestions();
+      }
+    });
   }
 
   groupedQuestions: { quizTitle: string; questions: Question[] }[] = []
@@ -121,7 +125,7 @@ export class QuestionsDashboardComponent {
   delete(q: Question) {
     if (confirm(`Delete question "${q.question}"?`)) {
       this.questionService.delete(q.id).subscribe(() => {
-        this.loadQuestions();
+        
       });
     }
   }

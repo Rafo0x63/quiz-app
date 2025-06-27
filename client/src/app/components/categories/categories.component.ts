@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { CategoriesService } from '../../services/categories.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { SlugifyPipe } from '../../pipes/slugify.pipe';
 
 @Component({
   selector: 'app-categories',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, SlugifyPipe],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.css'
 })

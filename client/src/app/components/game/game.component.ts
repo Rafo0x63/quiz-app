@@ -34,9 +34,11 @@ export class GameComponent {
         this.questions = data.questions
         this.currentQuiz = data.quiz
         this.currentQuestion = this.questions[this.currentQuestionIdx]
+        if(this.currentQuestionIdx === this.currentQuiz.questions.length - 1) this.isFinalQuestion = true
       },
       error: (err) => console.error("Error loading questions", err)
     })
+
   }
 
   selectAnswer(answer: string) {
