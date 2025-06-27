@@ -49,6 +49,27 @@ router.delete('/:id', async (req, res) => {
             id: Number(id)
         }
     })
+
+    res.json(question)
+})
+
+router.put('/:id', async (req, res) => {
+    const { id } = req.params
+    const { question, options, correct_answer, quiz_id } = req.body
+
+    const updatedQuestion = await prisma.question.update({
+        where: {
+            id: Number(id)
+        },
+        data: {
+            question: question,
+            options: options,
+            correct_answer: correct_answer,
+            quiz_id: quiz_id
+        }
+    })
+
+    res.json(updatedQuestion)
 })
 
 export default router

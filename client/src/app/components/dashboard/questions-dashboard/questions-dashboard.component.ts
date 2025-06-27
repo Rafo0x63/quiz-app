@@ -18,6 +18,7 @@ export class QuestionsDashboardComponent {
   form: FormGroup;
   editing: Question | null = null;
   options: string[] = [];
+  groupedQuestions: { quizTitle: string; questions: Question[] }[] = []
 
   constructor(
     private questionService: QuestionsService,
@@ -41,15 +42,12 @@ export class QuestionsDashboardComponent {
     });
   }
 
-  groupedQuestions: { quizTitle: string; questions: Question[] }[] = []
-
   loadQuestions() {
     this.questionService.getAll().subscribe(data => {
       this.questions = data.map(q => ({
         ...q,
         options: typeof q.options === 'string' ? JSON.parse(q.options) : q.options
       }));
-
       this.groupedQuestions = this.groupByQuiz(this.questions)
     });
   }
@@ -125,7 +123,7 @@ export class QuestionsDashboardComponent {
   delete(q: Question) {
     if (confirm(`Delete question "${q.question}"?`)) {
       this.questionService.delete(q.id).subscribe(() => {
-        
+        this.loadQuestions()
       });
     }
   }
