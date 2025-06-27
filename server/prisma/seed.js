@@ -87,6 +87,16 @@ async function main() {
     prisma.question.create({ data: { question: `Which organelle makes proteins?`, options: ["Ribosome", "Nucleus", "Lysosome", "Chloroplast"], correct_answer: `Ribosome`, quiz_id: quizzes[11].id } }),
   ]);
 
+  await prisma.user.create({
+    data: {
+      first_name: 'admin',
+      last_name: 'admin',
+      email: 'admin@admin.com',
+      is_admin: true,
+      password: '$2a$10$rx5OA5q69vQPSvLHwFAOguk6.6/EhWJTkAkPsPVpZJHJUCHx.zExC'
+    }
+  })
+
 }
 
 main()
