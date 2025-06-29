@@ -1,4 +1,12 @@
-<div class="container mt-4">
+<div class="container-fluid mt-4 col-10">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Questions</li>
+    </ol>
+  </nav>
+
+
   <h2>{{ editing ? 'Edit Question' : 'Add Question' }}</h2>
 
   <form [formGroup]="form" (ngSubmit)="submit()" class="mb-4">
@@ -81,10 +89,10 @@
     </button>
   </form>
 
-  <h4>Questions by Quiz</h4>
+  <h4 class="mb-5">Questions by Quiz</h4>
   <div class="row">
-    <div *ngFor="let group of groupedQuestions" class="mb-4 col-3">
-      <h5 class="fw-bold bg-info p-2 text-dark">{{ group.quizTitle }}</h5>
+    <div *ngFor="let group of groupedQuestions" class="mb-4 col-lg-4 col-md-6">
+      <h5 class="fw-bold text-dark text-center">{{ group.quizTitle }}</h5>
       <ul class="list-group">
         <li *ngFor="let q of group.questions" class="list-group-item">
           <div>

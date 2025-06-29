@@ -16,3 +16,7 @@ To start it:
 
 default frontend url = `localhost:4200`
 default api url = `localhost:3000/api`
+
+seeded admin account to see the dashboard and manage entities:
+  - email: `admin@admin.com`
+  - password: `admin123`

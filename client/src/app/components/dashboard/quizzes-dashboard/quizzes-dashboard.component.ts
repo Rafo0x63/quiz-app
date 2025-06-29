@@ -5,10 +5,11 @@ import { QuizzesService } from '../../../services/quizzes.service';
 import { CategoriesService } from '../../../services/categories.service'; 
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-quizzes',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './quizzes-dashboard.component.html'
 })
 export class QuizzesDashboardComponent {

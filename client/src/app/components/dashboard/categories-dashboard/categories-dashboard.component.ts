@@ -3,10 +3,11 @@ import { Category } from '../../../models/category';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CategoriesService } from '../../../services/categories.service';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-categories-dashboard',
-  imports: [CommonModule ,ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './categories-dashboard.component.html',
   styleUrl: './categories-dashboard.component.css'
 })

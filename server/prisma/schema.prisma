@@ -20,7 +20,7 @@ model question {
   options        Json?
   correct_answer String?  @db.VarChar(255)
   quiz_id        Int?
-  quiz           quiz? @relation(fields: [quiz_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "questions_ibfk_1")
+  quiz           quiz? @relation(fields: [quiz_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "questions_ibfk_1")
 
   @@index([quiz_id], map: "quiz_id")
 }
@@ -31,7 +31,7 @@ model quiz {
   description String?     @db.VarChar(255)
   category_id Int?
   questions   question[]
-  category  category? @relation(fields: [category_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "quizzes_ibfk_1")
+  category  category? @relation(fields: [category_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "quizzes_ibfk_1")
 
   @@index([category_id], map: "category_id")
 }
