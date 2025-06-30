@@ -32,6 +32,7 @@ export class AuthService {
                 if (user) {
                     this.currentUserSubject.next(user)
                     localStorage.setItem('currentUser', JSON.stringify(user))
+                    localStorage.setItem('token', response.token)
                 }
             })
         )

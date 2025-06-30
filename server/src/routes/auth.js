@@ -59,7 +59,7 @@ router.post('/login', async (req, res) => {
       
       let token = null
 
-      if (user && passwordValid && user.is_admin) {
+      if (user.is_admin) {
           token = jwt.sign( {userId: user.id, isAdmin: user.is_admin },  process.env.JWT_SECRET)
       }
 
