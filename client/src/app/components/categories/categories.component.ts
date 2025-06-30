@@ -6,7 +6,7 @@ import { SlugifyPipe } from '../../pipes/slugify.pipe';
 
 @Component({
   selector: 'app-categories',
-  imports: [CommonModule, RouterLink, SlugifyPipe],
+  imports: [CommonModule, RouterLink],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.css'
 })

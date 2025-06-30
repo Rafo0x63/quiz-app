@@ -1,12 +1,11 @@
 A quiz app made using Angular, Express and Prisma ORM
 
 To start it:
-  - clone the repo
   - navigate to the `client` folder
     - run `npm install` to install the dependencies
   - navigate to the `server` folder
     - run `npm install`
-    - open the `.env` file and change the `DATABASE_URL` to match your database info
+    - open the `.env` file and change the `DATABASE_URL` to match your database info - template: `DATABASE_URL=mysql://NAME:PASSWORD@localhost:PORT/database_name`
     - run `npx prisma generate` to generate the Prisma Client
     - run `npx prisma migrate dev --name init` to migrate the tables to your database
     - run `npx prisma db seed` to seed the data into the database

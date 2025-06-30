@@ -1,5 +1,6 @@
 import express from "express"
 import { PrismaClient } from '../../generated/prisma/client.js'
+import verifyAdmin from "../middleware/verifyAdmin.js"
 
 const router = express.Router()
 const prisma = new PrismaClient()
@@ -26,7 +27,7 @@ router.get("/:category_title/:quiz_title", async (req, res) => {
     res.json({quiz, questions})
 })
 
-router.post('/', async (req, res) => {
+router.post('/', verifyAdmin, async (req, res) => {
     const { question, options, correct_answer, quiz_id } = req.body
     
     const newQuestion = await prisma.question.create({
@@ -41,7 +42,7 @@ router.post('/', async (req, res) => {
     res.json(newQuestion)
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifyAdmin, async (req, res) => {
     const { id } = req.params
 
     const question = await prisma.question.delete({
@@ -53,7 +54,7 @@ router.delete('/:id', async (req, res) => {
     res.json(question)
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', verifyAdmin, async (req, res) => {
     const { id } = req.params
     const { question, options, correct_answer, quiz_id } = req.body
 

@@ -56,13 +56,15 @@ router.post('/login', async (req, res) => {
       if (!passwordValid) {
         return res.status(401).json({ error: 'Invalid email or password' })
       }
- 
-      if (user && passwordValid) {
-          const token = jwt.sign( {userId: user.id, isAdmin: user.is_admin },  process.env.JWT_SECRET)
+      
+      let token = null
+
+      if (user && passwordValid && user.is_admin) {
+          token = jwt.sign( {userId: user.id, isAdmin: user.is_admin },  process.env.JWT_SECRET)
       }
 
       res.json({ message: 'Login successful',
-        token,
+        ...(token && { token }),
         user: { 
           firstName: user.first_name, email: user.email, isAdmin: user.is_admin 
         }
@@ -72,6 +74,5 @@ router.post('/login', async (req, res) => {
       res.status(500).json({ error: 'Internal server error' })
     }
 })
-
 
 export default router
